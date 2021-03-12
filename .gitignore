@@ -1,0 +1,14 @@
+# Temp files
+.*~
+
+# Backup files
+*.bak
+*.bk
+*.orig
+
+# Project files
+.vscode/*
+.idea/*
+
+# ctags
+**/*.vi
