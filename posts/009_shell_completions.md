@@ -150,7 +150,7 @@ Let's first, stub out the `build.rs` file in our project root directory:
 ```rust
 // in build.rs
 
-use clap::Clap;
+use clap::{IntoApp, Clap};
 
 include!("src/cli.rs");
 
@@ -176,8 +176,8 @@ Let's add a Bash completion script:
 
 ```rust
 // in build.rs
-use clap_generate::{generators::Bash, generate};
-use clap::Clap;
+use clap_generate::{generators::Bash, generate_to};
+use clap::{IntoApp, Clap};
 
 include!("src/cli.rs");
 
@@ -268,10 +268,14 @@ And we update our build script:
 
 ```rust
 // in build.rs
-// Same as before...
 use clap_generate::{generators::*, generate_to};
 
+include!("src/cli.rs");
+
 fn main() {
+    let mut app = Args::into_app();
+    app.set_bin_name("grab-xkcd");
+
     let outdir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("completions/");
     generate_to::<Bash, _, _>(&mut app, "grab-xkcd", &outdir);
     generate_to::<Fish, _, _>(&mut app, "grab-xkcd", &outdir);
@@ -403,7 +407,7 @@ Now we can actually implement `Shell::generate`:
 use std::io::stdout;
 
 use clap::{Clap, IntoApp};
-use clap_generate::{generators::*, generate};
+use clap_generate::{generators::*, generate_to};
 
 impl Shell {
     fn generate(&self) {
