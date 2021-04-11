@@ -428,7 +428,8 @@ This works the same as `<ctrl>-r`, except its a list of paths. 'Nuf said.
 
 ## Navi
 
-Fuzzy search-able command cheat sheets. Yes please. 
+[`navi`](https://github.com/denisidoro/navi) is about fuzzy search-able command
+cheat sheets. Yes please.
 
 With this tool, I can search through (and create my own) command cheat sheets.
 It's difficult to explain, but when I press `<ctrl>+n` a TUI pops up (also using
@@ -444,6 +445,28 @@ firewall via `firewalld`:
 
 I tend to make more generic commands, and then will tweak the invocation
 manually at the end (which with `vi-mode` is super fast).
+
+Installation is done by either building from source, or using bash:
+
+```
+$ bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install)
+```
+
+Making your own cheat sheets is beyond the scope of this post, but highly worth
+it. It's also possible to use other's repositories and have them auto updated.
+You can find my own sheets [in a GitHub
+repository](https://github.com/kbknapp/navi-cheats)
+
+By default, `navi` can be run from the command line normally. Setting up the
+`<ctrl>-n` keybinding can be accomplished by `eval`'ing the built-in widget command in your `~/.zshrc`:
+
+```
+eval "$(navi widget zsh)"
+```
+
+By default the keybinding is `<ctrl>-g`. I prefer to just run `navi widget zsh`
+and paste the output into my `~/.zshrc` and change the keybinding from `g` to
+`n`, and also point it to my own cheat repositories locally.
 
 # Conclusion
 
