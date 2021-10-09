@@ -19,6 +19,8 @@ self contained enough, that it'd be interesting to see the same example in Rust!
 
 <!-- more --> 
 
+**Updates: Updated on 2021-10-09 to clap v3.0-beta.4**
+
 **NOTE:** This article assumes the reader is at least mildly familiar with Rust.
 
 This will be an *almost* one to one comparison, however there are slight
@@ -64,7 +66,7 @@ We can do this all in just a few lines of Rust via the
 [`clap`](https://github.com/clap-rs/clap) crate. For those familiar with the
 [`structopt`](https://github.com/TeXitoi/structopt) crate, which allows one to
 define a Rust struct that contains all the CLI logic, as of `clap` 3.0 that code
-has been merged together. We will use the `3.0.0-beta.1` release of `clap` to
+has been merged together. We will use the `3.0.0-beta.4` release of `clap` to
 demonstrate.
 
 We'll use [`cargo-edit`](https://github.com/killercup/cargo-edit) to add our
@@ -73,13 +75,13 @@ dependencies:
 ```
 $ cargo add clap --allow-prerelease
     Updating 'https://github.com/rust-lang/crates.io-index' index
-      Adding clap v3.0.0-beta.1 to dependencies
+      Adding clap v3.0.0-beta.4 to dependencies
 ```
 
 Here is our CLI:
 
 ```rust
-use clap::Clap;
+use clap::{ArgEnum, Clap};
 
 /// A utility to grab XKCD comics
 #[derive(Clap)]
@@ -98,7 +100,7 @@ pub struct Args {
     pub save: bool,
 }
 
-#[derive(Clap, Copy, Clone)]
+#[derive(ArgEnum, Copy, Clone)]
 pub enum OutFormat {
     Json,
     Text,
@@ -115,6 +117,11 @@ the first article.
 * `long, short` tells clap to create a long `--foo` and short `-f` switch
   automatically based off the field name.
 * `arg_enum` tells clap to use the field's enum as the value variants.
+* `#[derive(ArgEnum)` this allows clap to use the enum variants as values
+  for a particular argument. It does things like auto-derive
+  `std::str::FromStr` and handles ASCII upper/lowercase differences as
+  well as comparing the supplied value at runtime to the one of the
+  variants.
 
 Notice we included an enum `OutFormat` with two variants. This allows us to
 limit the possible values provided on the CLI to known values. It also allows us
@@ -404,14 +411,14 @@ minor stubs!
 
 First, we know we'll be making an HTTP request so we'll need some crate to do
 that for us. There are a ton of options out there. One I've used before is
-[`reqwest`](https://docs.rs/reqwest/0.10.4/reqwest/) which supports both `async`
+[`reqwest`](https://docs.rs/reqwest/0.11.5/reqwest/) which supports both `async`
 and blocking I/O. We'll be using the blocking I/O version, so let's add that
 crate now:
 
 ```
 $ cargo add reqwest
     Updating 'https://github.com/rust-lang/crates.io-index' index
-      Adding reqwest v0.10.4 to dependencies
+      Adding reqwest v0.11.5 to dependencies
 ```
 
 But since we'll be using the blocking I/O we need to manually edit the
@@ -421,7 +428,7 @@ But since we'll be using the blocking I/O we need to manually edit the
 # Cargo.toml
 [dependencies]
 # .. snip
-reqwest = { version = "0.10.4", features = ["blocking"]}
+reqwest = { version = "0.11.5", features = ["blocking"]}
 ```
 
 Now we can write the actual method! Here goes!
@@ -429,7 +436,7 @@ Now we can write the actual method! Here goes!
 ```rust
 impl XkcdClient {
     // ... same as above
-    
+
     fn run(&self) -> Result<()> {
         let url = if let Some(n) = self.args.num {
             format!("{}/{}/info.0.json", BASE_URL, n)
@@ -492,7 +499,7 @@ Let's stub that out:
 ```rust
 impl Comic {
     // .. snip
-    
+
     fn print(&self, of: OutFormat) -> Result<()> {
         match of {
             OutFormat::Text => println!("{}", todo!("print self as Text")),
@@ -542,7 +549,7 @@ formatted correct. So updating our `print` method now looks like:
 ```rust
 impl Comic {
     // .. snip
-    
+
     fn print(&self, of: OutFormat) -> Result<()> {
         match of {
             OutFormat::Text => println!("{}", self), // <-- New
@@ -623,7 +630,7 @@ impl Comic {
         let p = std::env::current_dir()?;
         let p = p.join(img_name);
         let mut file = std::fs::File::create(p)?;
-	
+
 	todo!("do HTTP GET and save the file!");
     }
 }
@@ -648,9 +655,9 @@ turns the response into raw bytes, which can be dereferenced into `&[u8]` that
 ```rust
 fn save(&self) -> Result<()> {
     use std::io::Read;
-    
+
     // .. snip, same as before
-	
+
     let body = reqwest::blocking::get(&self.img_url)?;
     file.write_all(&*body.bytes()?).map_err(|e| e.into())
 }

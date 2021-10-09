@@ -18,6 +18,8 @@ completions both at compile time and/or run time.
 
 <!-- more -->
 
+**Updates: Updated 2021-10-09 to clap 3.0-beta.4**
+
 # Why Completion Scripts
 
 Perhaps my biggest daily, "Ugh.." moment is working on the command line and
@@ -112,7 +114,7 @@ will need to install these scripts manually based on the shell they're using.
 
 The process of telling `clap` to generate a completion script at compile time
 happens in a [`cargo` build
-script](https://doc.rust-lang.org/cargo/reference/build-scripts.html). 
+script](https://doc.rust-lang.org/cargo/reference/build-scripts.html).
 
 The way completion scripts are generated changed between `clap` v2 and the
 upcoming v3. In v3 (which we used in the previous article) moved the completion
@@ -128,8 +130,8 @@ regular dependency.
 ```
 $ cargo add clap clap_generate --allow-prerelease --build
     Updating 'https://github.com/rust-lang/crates.io-index' index
-      Adding clap_generate v3.0.0-beta.2 to build-dependencies
-      Adding clap v3.0.0-beta.2 to build-dependencies
+      Adding clap_generate v3.0.0-beta.4 to build-dependencies
+      Adding clap v3.0.0-beta.4 to build-dependencies
 ```
 
 If we were to look at our `Cargo.toml` we'd now see two `dependencies` tables,
@@ -138,7 +140,7 @@ with the new one being `[build-dependencies]` listing the two crates above.
 that's still required to parse run time arguments.
 
 Next, since `clap_generate` needs a
-[`clap::App`](https://docs.rs/clap/3.0.0-beta.2/clap/struct.App.html) instance
+[`clap::App`](https://docs.rs/clap/3.0.0-beta.4/clap/struct.App.html) instance
 in order to be able to walk our CLI and generate everything, we'll need to use
 the `into_app()` method that was `#[derive]`d on our `Args` struct in the
 previous article.
@@ -205,7 +207,7 @@ struct and move on.
 Walking through the rest of the above:
 
 - We import a single
-  [`Generator`](https://docs.rs/clap_generate/3.0.0-beta.2/clap_generate/trait.Generator.html),
+  [`Generator`](https://docs.rs/clap_generate/3.0.0-beta.4/clap_generate/trait.Generator.html),
   `Bash` which will walk our `App` struct and generate all options.
 - We get the value of `cargo`'s environmental variable `CARGO_MANIFEST_DIR`
   which is our source root and where we will be saving the script to.
@@ -335,7 +337,7 @@ pub struct Args {
     pub completions: Option<Shell>,
 }
 
-#[derive(Clap, Copy, Clone)]
+#[derive(ArgEnum, Copy, Clone)]
 pub enum Shell {
     Bash,
     Zsh,
@@ -397,7 +399,7 @@ let's add `clap_generate` to our normal run time dependencies:
 ```
 $ cargo add clap_generate --allow-prerelease
     Updating 'https://github.com/rust-lang/crates.io-index' index
-      Adding clap_generate v3.0.0-beta.2 to dependencies
+      Adding clap_generate v3.0.0-beta.4 to dependencies
 ```
 
 Now we can actually implement `Shell::generate`:
@@ -406,7 +408,7 @@ Now we can actually implement `Shell::generate`:
 // in src/cli.rs
 use std::io::stdout;
 
-use clap::{Clap, IntoApp};
+use clap::{Clap, IntoApp, ArgEnum};
 use clap_generate::{generators::*, generate_to};
 
 impl Shell {
