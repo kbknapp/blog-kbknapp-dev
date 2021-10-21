@@ -6,12 +6,12 @@ template = "page.html"
 date = 2021-04-02
 in_search_index = true
 [taxonomies]
-categories = ["shell", "linux", "terminal"]
+categories = ["shell", "linux", "terminal", "blog"]
 tags = ["shell", "zsh", "linux", "terminal"]
 +++
 
 Details a few steps I take to make my terminal experience a little more
-pleasant. 
+pleasant.
 
 <!-- more -->
 
@@ -41,7 +41,7 @@ and want to use and go about my day.
 
 I don't use anything like Ansible to set up my machine because there are too
 many variables that control how I use a particular machine and which steps I
-want to actually utilize. 
+want to actually utilize.
 
 **Aside:** I actually have a [`baseline`](https://github.com/kbknapp/baseline)
 set of scripts that do all the copying/symlinking for me based on a TUI dialog I
@@ -59,7 +59,7 @@ and I try to call those out where I'm aware of any differences.
 
 These steps change some way in which I interact with the terminal, whether they
 be standalone tools, or work-flows I use. All these steps are used to improve the
-speed at which I work, or to better the experience. 
+speed at which I work, or to better the experience.
 
 Most of the changes build on each-other, or other skills I've built up along the
 years so they may not be widely applicable unless you're in a similar boat. For
@@ -82,7 +82,7 @@ shell (ZSH) can do as well as you'll see soon.
 
 ZSH is nearly fully compatible with Bash, in fact I've had to make zero changes
 to any existing scripts or commands to adapt. All my Bash knowledge works in
-ZSH. 
+ZSH.
 
 **Aside:** The one area where I've personally hit differences is when *writing*
 completion scripts for programs (i.e. the menus that pop up when you hit
@@ -116,7 +116,7 @@ example:
 
 ```
 $ gti commit -m "foo"
-zsh: correct 'gti' to 'git' [nyae]? 
+zsh: correct 'gti' to 'git' [nyae]?
 ```
 
 Finally, instead of typing `cd ../blah/` you can just type `../blah/`.
@@ -132,12 +132,12 @@ $ sudo chsh -s $(which zsh) $USER
   (change my default shell to ZSH)
 ```
 
-**Note:** `chsh` is no longer available by default in some distributions. You
-must have the package `util-linux-user` installed to use it.
+**Note:** `chsh` is no longer available by default in some distributions. In
+Fedora, it's included in the package `util-linux-user`.
 
 Then I use the following `~/.zshrc` configuration:
 
-```
+```sh
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
@@ -163,7 +163,7 @@ $ git clone https://github.com/ohmyzsh/ohmyzsh ~/.oh-my-zsh
 
 Then add a few lines to the *top* your ZSH configuration file:
 
-```
+```sh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 plugins=(git systemd)
@@ -187,7 +187,7 @@ only add the ones you'll use frequently.
 ### Auto-Suggestions
 
 This is the feature that most people love from Fish. It uses your command
-history to suggest commands live as you type, and frankly I love it too. 
+history to suggest commands live as you type, and frankly I love it too.
 
 ![auto-suggest](../imgs/shell_howto_auto_suggest.gif)
 
@@ -213,7 +213,7 @@ the command. I love it.
 Again, a simple clone and add a plugin.
 
 ```
-$ git clone git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
 Then add `zsh-syntax-highlighting` to the `plugins` array.
@@ -238,13 +238,13 @@ To install, you clone a repo and `source` the script in your `~/.zshrc`, and use
 `abbrev-alias` instead of the normal `alias` command.
 
 ```
-$ git clone git clone https://github.com/momo-lab/zsh-abbrev-alias ~/.config/zsh-abbrev-alias/
+$ git clone https://github.com/momo-lab/zsh-abbrev-alias ~/.config/zsh-abbrev-alias/
 $ echo 'source $HOME/.config/zsh-abbrev-alias/abbrev-alias.plugin.zsh' >> ~/.zshrc
 ```
 
 And then for example, to add the `gl` alias I mentioned earlier
 
-```
+```sh
 abbrev-alias gl='git log --graph --all --oneline --decorate'
 ```
 
@@ -328,7 +328,7 @@ $ curl -fsSL https://starship.rs/install.sh | bash
 To use, simply comment out your `ZSH_THEME` variable, and add this line to your
 `~/.zshrc` (which the install script may have already added):
 
-```
+```sh
 eval "$(starship init zsh)"
 ```
 
@@ -342,7 +342,7 @@ in mind (whereas starship is designed to be used with any shell).
 Clone the project:
 
 ```
-$ git clone git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+$ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
 Then we set our `ZSH_THEME="powerlevel10k/powerlevel10k"`.
@@ -388,7 +388,7 @@ tile panes without having to re-authenticate.
 
 ## FZF
 
-The fuzzy finder. This tool is so amazing that it deserves a full post itself. 
+The fuzzy finder. This tool is so amazing that it deserves a full post itself.
 
 It fuzzy matches through lists and allows one to interactively select one (or
 multiple) items. Sounds simple.
@@ -460,7 +460,7 @@ repository](https://github.com/kbknapp/navi-cheats)
 By default, `navi` can be run from the command line normally. Setting up the
 `<ctrl>-n` keybinding can be accomplished by `eval`'ing the built-in widget command in your `~/.zshrc`:
 
-```
+```sh
 eval "$(navi widget zsh)"
 ```
 
