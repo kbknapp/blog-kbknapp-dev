@@ -13,7 +13,7 @@ tags = ["network", "performance", "rust"]
 Imagine you have a distributed system and need to answer something like, "Which
 node is closest to Node X?" or perhaps "Which N nodes are closest to Node Y?"
 
-It turns out answering this question naively is _wildly_ wasteful. 
+It turns out answering this question naively is _wildly_ wasteful.
 
 We'll dig in to a popular Network Coordinates system and how to use it
 correctly below.
@@ -24,10 +24,10 @@ correctly below.
 
 As an example of the kinds of differences we're talking about, a naive solution
 to this question for a system of 1,000 nodes (where a "node" could be a host, a
-VM, or even a container) could require between 1GB to 48GB+ network bandwidth
+VM, or even a container) could require between 1GB to 240GB+ network bandwidth
 per day depending on how accurate (or the frequency of) one would like the
-results to be. Whereas the solution we'll be discussing here would require 88KB
-to 4.25MB for the same "accuracy" levels.
+results to be. Whereas the solution we'll be discussing here would require 272KB
+to 65MB for the same "accuracy" levels.
 
 This more efficient system is known as Network Coordinates. But these
 coordinates also need to be used properly or you effectively have a fancy
@@ -117,9 +117,8 @@ So how would these Network Coordinates work, and why are they so much better?
 ## Vivaldi
 
 The system we're discussing here is based on the [Vivaldi Network
-Coordinates](https://pdos.csail.mit.edu/papers/vivaldi:sigcomm/paper.pdf)
-(PDF). Network coordinates function much like physical coordinates on a map.
-Two locations have some coordinate that represents their
+Coordinates](https://pdos.csail.mit.edu/papers/vivaldi:sigcomm/paper.pdf) (PDF). Network coordinates function much like physical
+coordinates on a map. Two locations have some coordinate that represents their
 location.
 
 In physical space it's relatively simple to take two coordinates and determine
@@ -169,6 +168,11 @@ coordinates.
 
 ![Fig. 03](../imgs/net-coords-003.svg)
 
+> **NOTE:**
+> I've deliberately left out the actual coordinate numbers (i.e. `(2,4)`, etc.)
+> because the coordinates themselves are irrelevant and meaningless. The only
+> meaning comes from comparing two sets within the same system.
+
 Now `A` and `B` do a latency check, observe real world latency and adjust their
 coordinates.
 
@@ -200,9 +204,14 @@ more checking!
 
 ![Fig. 07](../imgs/net-coords-007.svg)
 
-In the diagram we got luck and a single check made everything accurate again.
-However, a real world update to `C` could have well made it accurate for `B`
-but now `A` is not accurate so it needs to adjust, etc. etc.
+In the diagram a single check made everything accurate again. However, a real
+world update to `C` could have well made it accurate for `B` but now `A` is not
+accurate any longer so it needs to adjust, etc. etc.
+
+> **NOTE:** 
+> Additionally, the direction of movement is calculated from the position of
+> the remote, which the diagram doesn't accurately reflect because it would
+> have made the sequence more confusing as stabilization can take many rounds.
 
 ### Error Estimates
 
@@ -263,12 +272,15 @@ required.
 
 We'll assume 8D coordinates, which is effectively a `[f64; 8]` in Rust plus a
 few `f64`'s of metadata like error estimates and jitter smoothing, in total 88
-bytes per Vivaldi message.
+bytes per Vivaldi message as a payload, and we're free to use whichever
+protocol best serves our application, say UDP which like ICMP is 8 bytes. We
+also have our original overhead of 40 bytes for the IPv4 and Ethernet header.
 
 We add an origin node, so 1,001 nodes, and a single coordinate update for _all
-nodes_ is about 88KB of traffic. Let's be fair and say we did five updates per
-node, so total network traffic for all nodes and those five updates is .44MB.
-Even if we did this every 30 minutes, that's less than 24MB per day.
+nodes_ is about 272KB of traffic. Let's be fair and say we did five updates per
+node, so total network traffic for all nodes and those five updates is 1.36MB.
+Even if we did this every 30 minutes, that's only 65.28MB per day (versus our
+240GB+ in the naive solution).
 
 # Real Power
 
