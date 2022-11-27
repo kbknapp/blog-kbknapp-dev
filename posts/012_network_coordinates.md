@@ -117,8 +117,9 @@ So how would these Network Coordinates work, and why are they so much better?
 ## Vivaldi
 
 The system we're discussing here is based on the [Vivaldi Network
-Coordinates][vivaldi]. Network coordinates function much like physical
-coordinates on a map. Two locations have some coordinate that represents their
+Coordinates](https://pdos.csail.mit.edu/papers/vivaldi:sigcomm/paper.pdf)
+(PDF). Network coordinates function much like physical coordinates on a map.
+Two locations have some coordinate that represents their
 location.
 
 In physical space it's relatively simple to take two coordinates and determine
@@ -289,7 +290,7 @@ But how fast are these calculations?
 
 ## Speed
 
-In my Rust Vivaldi implementation (called [`violin`][violin]), a single
+In my Rust Vivaldi implementation (called [`violin`](https://github.com/kbknapp/violin)), a single
 calculation of two 8D coordinates using stack memory on my 8 core AMD Ryzen 7
 5850U laptop with 16GB RAM takes ~16.5ns. A benchmark of 1,000,000 calculations
 takes 16.5ms.
@@ -300,8 +301,8 @@ I hope this post has given you some insight into how to efficiently get answers
 to questions like "network closeness." Using a Vivaldi based solution
 (_correctly_!) can vastly improve distributed systems performance.
 
-If you're into Rust, check out `violin`! As a quick sample, this is what it
-looks like to use:
+If you're into Rust, check out [`violin`](https://github.com/kbknapp/violin)!
+As a quick sample, this is what it looks like to use:
 
 ```rust
 use std::time::Duration;
@@ -328,6 +329,3 @@ println!("a's estimate to b: {:.2}ms", a.distance_to(&b.coordinate()).as_millis(
 
 As a bonus `violin` also works in `no_std` and no `alloc` environments (but
 with some performance penalties due to lack of platform intrinsics).
-
-vivaldi: https://pdos.csail.mit.edu/papers/vivaldi:sigcomm/paper.pdf
-violin: https://github.com/kbknapp/violin
