@@ -14,7 +14,7 @@ This site represents something I've been meaning to do quite some time; write ou
 
  <!-- more --> 
 
-I suspect some of my thoughts may be controverisal, others may be ridiculous in hindsight, but getting these thoughts off my chest is something I need to do.
+I suspect some of my thoughts may be controversial, others may be ridiculous in hindsight, but getting these thoughts off my chest is something I need to do.
 
 I've been wanting to get `clap` v3 released for what feels like eternity (probably about a year), but each time I sit down to write some code I'll find myself wandering through various issues in my mind distracting me from the code at hand. This writing can be my therapy. Get these thoughts off my mind, like a house cleaning that allows me to focus on tasks that matter.
 

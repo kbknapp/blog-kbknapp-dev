@@ -6,7 +6,7 @@ template = "page.html"
 date = 2021-04-05
 in_search_index = true
 [taxonomies]
-categories = ["shell", "linux", "strace", "terminal"]
+categories = ["shell", "linux", "strace", "terminal", "blog"]
 tags = ["shell", "navi", "linux", "strace"]
 +++
 
@@ -68,7 +68,7 @@ Microscope"](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2).
 As mentioned in my previous post, I bind `navi` to `<CTRL>-n` in my terminal,
 using the following ZSH function in my `~/.zshrc`:
 
-```
+```sh
 _call_navi() {
   local selected
   if selected="$(printf "$(navi --print --path ${HOME}/Projects/navi-cheats/cheats </dev/tty)")"; then
@@ -187,7 +187,7 @@ $ strace firefox
 
 ![Fig. 01](../imgs/navi_01.gif)
 
-## Static Expansions 
+## Static Expansions
 
 We can present a limited set of options for the user (which by default also
 allows them to type something outside of our presented options).
@@ -242,7 +242,7 @@ $ strace -p foo
 
 ![Fig. 03](../imgs/navi_03.gif)
 
-Which will error when run. 
+Which will error when run.
 
 Using a static expansion can help with this somewhat:
 
@@ -389,7 +389,7 @@ $ QUIET: echo -e '\t\tNo suppression;-q\t\tSuppress attach/detach messages;-qq\t
 ```
 
 This shows a text message above the input box with description of what `navi` is
-asking. 
+asking.
 
 ![Fig. 09](../imgs/navi_09.gif)
 

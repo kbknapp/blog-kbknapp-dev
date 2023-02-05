@@ -460,7 +460,7 @@ Ok, that's *a lot* to take in.
 
 Let's go over the highlights:
 
-* Lines 5-9: We build a request URL based on if the user requested a particualr
+* Lines 5-9: We build a request URL based on if the user requested a particular
   comic, if not we get the latest comic
 * Lines 10-12: We build an HTTP client with a custom timeout based on
   `--timeout` or the default

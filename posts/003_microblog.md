@@ -15,7 +15,7 @@ In an attempt to get more words on paper I'm going to attempt to microblog.
 <!-- more --> 
 
 I have a tendency to want to write very detailed and long winded blog entries.
-Unfortunately, these types of blog posts take a large ammount of time. If you've
+Unfortunately, these types of blog posts take a large amount of time. If you've
 followed my open source development over the past two years the theme has been
 that my time is becoming increasingly limited.
 

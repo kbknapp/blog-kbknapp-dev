@@ -45,7 +45,7 @@ leave how it can be implemented to solve our problem for a later date.
 
 # About eBPF
 
-BPF stands for Berkley Packet Filter. It is a technology for running user code
+BPF stands for Berkeley Packet Filter. It is a technology for running user code
 inside the Linux Kernel in a safe and efficient manner. BPF consists of a
 virtual machine running inside the kernel that takes BPF bytecode, optionally
 just in time (JIT) compiles the bytecode to native machine instructions,
@@ -535,7 +535,7 @@ re-write the packet data. In the case of XDP, this attachment point is
 *extremely* low level, and actually prior to the kernel conducting any
 processing on the packet at all.
 
-Small side note, BPF programs targetting the XDP attachment point can even be
+Small side note, BPF programs targeting the XDP attachment point can even be
 offloaded on the actual NIC hardware, for some special NICs. This means the BPF
 program is loaded onto the NIC, and run for every packet that touches the NIC
 before the host machine/kernel even sees it. This is incredibly powerful as if
@@ -561,7 +561,7 @@ For example, packet ingress flow may look something like this:
 The traffic control layer gets the packet after the XDP layer, but first the
 kernel does some basic parsing of the packet memory and allocates a socket
 buffer. Thus the context is different from the XDP layer, so a function
-targetting the TC layer would look like:
+targeting the TC layer would look like:
 
 ```C
 SEC("action-drop")

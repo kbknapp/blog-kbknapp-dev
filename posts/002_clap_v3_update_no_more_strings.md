@@ -14,7 +14,7 @@ This is the second post in a series detailing the issues, progress, and design d
 
 <!-- more --> 
 
-**NOTE:** This post uses `String` heavily, however, the acutal `clap` code doesn't usually deal in `String`s per se. Usually `&str` to keep from allocating more than absolutely required. But for simplicity sake, I'll be using `String` the majority of the time in this post.
+**NOTE:** This post uses `String` heavily, however, the actual `clap` code doesn't usually deal in `String`s per se. Usually `&str` to keep from allocating more than absolutely required. But for simplicity sake, I'll be using `String` the majority of the time in this post.
 
 # Issue: Removing Strings
 

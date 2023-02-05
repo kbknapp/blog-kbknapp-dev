@@ -153,7 +153,7 @@ You can think of a network packet as a "header" followed by a "body/payload".
 
 {% fk(after=true, emoji="¯\_(ツ)_/¯") %}
 
-I use the terms body and payload interchangably. As well as the terms header and
+I use the terms body and payload interchangeably. As well as the terms header and
 prefix.
 
 {% end %}
@@ -348,7 +348,7 @@ by platform). `SkBuff::load` takes care of the conversion for us, but
 `XdpContext`, `NetworkBuffer`, or `Data<T>` do not, and leave that to the
 calling code.
 
-**NOTE:** A full discussion on Endianess is beyond the scope of this series
+**NOTE:** A full discussion on Endianness is beyond the scope of this series
 ([see here for a quick
 intro](https://www.section.io/engineering-education/what-is-little-endian-and-big-endian/)),
 but essentially it's the order in which bytes are stored (least significant bits
