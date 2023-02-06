@@ -17,7 +17,7 @@ demo for concise cheat sheet!
 
 In the previous post I spent a short time detailing steps I take to make my
 command line experience more pleasant and efficient. One of the steps I listed
-was using the tool [`navi`](https://github.com/densidor/navi) to quickly recall
+was using the tool [`navi`][navi] to quickly recall
 commands.
 
 This is incredibly helpful for commands that I don't use often, or for
@@ -495,3 +495,5 @@ that want to bootstrap making their own cheats.
 There is quite a bit more `navi` can do, but this post is long enough!
 
 Happy cheating.
+
+[navi]: https://github.com/denisidoro/navi
