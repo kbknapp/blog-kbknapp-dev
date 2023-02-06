@@ -477,10 +477,12 @@ example as well!
 # Conclusion
 
 We learned that Rust will duplicate generic functions for all concrete types
-that use said function, causing a lot of code duplication. By turning our
-generic function into a small wrapping shim, that immediately dispatches to an
-internal *non-generic* function only the shim gets duplicated while all our
-"real code" stays as a single logical function.
+that use said function, which can cause a decent bit of code duplication and
+increase compile times. 
+
+By turning our generic function into a small wrapping shim, that immediately
+dispatches to an internal *non-generic* function only the shim gets duplicated
+while all our "real code" stays as a single logical function.
 
 [cargo-llvm-lines]: https://crates.io/crates/cargo-llvm-lines
 [cargo-bloat]: https://crates.io/crates/cargo-bloat
