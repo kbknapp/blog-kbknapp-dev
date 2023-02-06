@@ -457,10 +457,11 @@ nalyzing target/debug/blog_demo
 [ .. snip .. ]
 ```
 
-Even though we have these closures, it's still a total of 684 bytes. Again, in
-this contrived example it's not that dramatic, but in the real world it is
-often quite dramatic as the original `generic_speak` or later
-`generic_speak_strings` could have quite a lot of code!
+Even though we have these closures, it's still a total of 684 bytes instead of
+the original 855 bytes. Again, in this contrived example it's not that
+dramatic, but in the real world it is often quite dramatic as the original
+`generic_speak` or later `generic_speak_strings` could have quite a lot of
+code!
 
 > **Warning**
 > The Caveat! Conversion performance and allocations
