@@ -89,7 +89,7 @@ I can hear you now, "Easy! Just use `iptables` with `-m string` to match the
 bytes and clone the packets with `-j TEE` to another port via the `mangle`
 table!"
 
-Slow down buckaroo. It turns out I didn't give you all the details in order ot
+Slow down buckaroo. It turns out I didn't give you all the details in order to
 keep this simple enough for a blog series. We also have some strict validation
 requirements along with this new multiple-entities-from-a-single-source
 "upgrade." For the sake of this series we'll just use a narrow window for
