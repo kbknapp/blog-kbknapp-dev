@@ -60,8 +60,8 @@ fn genric_str(param: &'static str) {
 }
 
 fn main() {
-  generic(30);
-  generic("foo");
+  generic_i32(30);
+  generic_str("foo");
 }
 ```
 
