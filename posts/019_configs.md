@@ -16,7 +16,7 @@ Thoughts on best practices when when building a configurable application.
 
 ## Background
 
-Recently [this post titled, "Don't prefill Your config files"][post] was makig
+Recently [this post titled, "Don't prefill Your config files"][post] was making
 its round of the various news aggregators I follow. This topic closely tracks
 the last few articles I wrote about building command line applications and
 passing around an ["Application Context."][ctx]
